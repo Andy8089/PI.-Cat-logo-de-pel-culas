@@ -1,0 +1,55 @@
+<h1>Administración de Películas</h1>
+
+<form id="formAgregar">
+  <input type="text" placeholder="Título" required><br>
+  <input type="number" placeholder="Año" required><br>
+  <input type="text" placeholder="Director" required><br>
+  <input type="text" placeholder="Género" required><br>
+  <textarea placeholder="Sinopsis" required></textarea><br>
+  <input type="text" placeholder="URL de imagen" required><br>
+  <button type="submit">Agregar Película</button>
+</form>
+
+<div id="listaPeliculasAdmin">
+</div>
+
+<script>
+  let peliculas = JSON.parse(localStorage.getItem("peliculasAdmin")) || [];
+
+  function renderPeliculas() {
+    const cont = document.getElementById("listaPeliculasAdmin");
+    cont.innerHTML = "";
+    peliculas.forEach((p, index) => {
+      cont.innerHTML += `
+        <div>
+          <strong>${p.titulo}</strong> (${p.año}) <button onclick="eliminar(${index})">Eliminar</button>
+        </div>
+      `;
+    });
+  }
+
+  function eliminar(index) {
+    peliculas.splice(index, 1);
+    localStorage.setItem("peliculasAdmin", JSON.stringify(peliculas));
+    renderPeliculas();
+  }
+
+  document.getElementById("formAgregar").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const inputs = this.querySelectorAll("input, textarea");
+    const nueva = {
+      titulo: inputs[0].value,
+      año: inputs[1].value,
+      director: inputs[2].value,
+      genero: inputs[3].value,
+      sinopsis: inputs[4].value,
+      imagen: inputs[5].value
+    };
+    peliculas.push(nueva);
+    localStorage.setItem("peliculasAdmin", JSON.stringify(peliculas));
+    this.reset();
+    renderPeliculas();
+  });
+
+  renderPeliculas();
+</script>
