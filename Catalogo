@@ -1,0 +1,34 @@
+<h1>Catálogo de Películas</h1>
+<div id="peliculasContainer">
+</div>
+
+<script>
+  const peliculas = [
+    {
+      id: 1,
+      titulo: "Inception",
+      imagen: "inception.jpg"
+    },
+    {
+      id: 2,
+      titulo: "Interstellar",
+      imagen: "interstellar.jpg"
+    }
+  ];
+
+  const container = document.getElementById('peliculasContainer');
+  peliculas.forEach(pelicula => {
+    container.innerHTML += `
+      <div class="pelicula">
+        <img src="${pelicula.imagen}" width="150">
+        <h3>${pelicula.titulo}</h3>
+        <button onclick="verDetalle(${pelicula.id})">Ver Detalles</button>
+      </div>
+    `;
+  });
+
+  function verDetalle(id) {
+    localStorage.setItem("peliculaId", id);
+    window.location.href = "descripcion.html";
+  }
+</script>
