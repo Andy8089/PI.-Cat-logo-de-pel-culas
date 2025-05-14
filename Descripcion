@@ -1,0 +1,39 @@
+<h1>Detalle de la Película</h1>
+<div id="detallePelicula"></div>
+
+<script>
+  const peliculas = [
+    {
+      id: 1,
+      titulo: "Inception",
+      año: 2010,
+      director: "Christopher Nolan",
+      genero: "Ciencia Ficción",
+      sinopsis: "Un ladrón que roba secretos a través de los sueños...",
+      imagen: "inception.jpg"
+    },
+    {
+      id: 2,
+      titulo: "Interstellar",
+      año: 2014,
+      director: "Christopher Nolan",
+      genero: "Aventura",
+      sinopsis: "Un grupo de exploradores viaja más allá...",
+      imagen: "interstellar.jpg"
+    }
+  ];
+
+  const id = localStorage.getItem("peliculaId");
+  const pelicula = peliculas.find(p => p.id == id);
+  const container = document.getElementById("detallePelicula");
+  if (pelicula) {
+    container.innerHTML = `
+      <img src="${pelicula.imagen}" width="200"><br>
+      <strong>Título:</strong> ${pelicula.titulo}<br>
+      <strong>Año:</strong> ${pelicula.año}<br>
+      <strong>Director:</strong> ${pelicula.director}<br>
+      <strong>Género:</strong> ${pelicula.genero}<br>
+      <strong>Sinopsis:</strong> ${pelicula.sinopsis}<br>
+    `;
+  }
+</script>
